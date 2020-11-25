@@ -1,0 +1,152 @@
+[Encoder]
+    [Encoder.network] 
+    name = 'Encoder'
+    model_start_key = 1
+
+    [Encoder.layer1]
+    type = 'conv2d'
+    name = 'conv1_1'
+    output_channel = 16
+    fileter_size = [3,3]
+    stride = 1
+    padding = 'SAME'
+    bn=false
+    activation_fn = 'ReLU'
+    extra_feature = false
+
+    [Encoder.layer2]
+    type = 'maxpool'
+    karnel_size = [1,2,2,1]
+    stride = [1,2,2,1]
+    padding = 'SAME'
+
+    [Encoder.layer3]
+    type = 'conv2d'
+    name = 'conv2_1'
+    output_channel = 8
+    fileter_size = [3,3]
+    stride = 1
+    padding = 'SAME'
+    bn=false
+    activation_fn = 'ReLU'
+    extra_feature = false
+
+    [Encoder.layer4]
+    type = 'maxpool'
+    karnel_size = [1,2,2,1]
+    stride = [1,2,2,1]
+    padding = 'SAME'
+
+    [Encoder.layer5]
+    type = 'conv2d'
+    name = 'conv3_1'
+    output_channel = 8
+    fileter_size = [3,3]
+    stride = 1
+    padding = 'SAME'
+    bn=false
+    activation_fn = 'ReLU'
+    extra_feature = false
+
+    [Encoder.layer6]
+    type = 'maxpool'
+    karnel_size = [1,2,2,1]
+    stride = [1,2,2,1]
+    padding = 'SAME'
+
+    [Encoder.layer7]
+    type = 'reshape'
+    shape = [-1, 128] #4*4*8
+
+    [Encoder.layer8]
+    type = 'fc'
+    name = 'fc1'
+    output_channel = 2048
+    bn=true
+    activation_fn = 'ReLU'
+    dropout = false
+    drate = 0.5
+
+    [Encoder.layer9]
+    type = 'fc'
+    name = 'fc_mu'
+    output_channel = 100
+    bn=false
+    activation_fn = 'None'
+    dropout = false
+    drate = 0.5
+
+    [Encoder.layer10]
+    type = 'fc'
+    name = 'fc_sigma'
+    output_channel = 100
+    bn=false
+    activation_fn = 'None'
+    dropout = false
+    drate = 0.5
+
+[Decoder]
+    [Decoder.network]
+    name = 'Decoder'
+    model_start_key = 1
+
+    [Decoder.layer1]
+    type = 'fc'
+    name = 'fc_1'
+    output_channel = 128 #4*4*8
+    bn=true
+    activation_fn = 'ReLU'
+    dropout = false
+    drate = 0.5
+
+    [Decoder.layer2]
+    type = 'reshape'
+    shape = [-1,4,4,8]
+
+    [Decoder.layer3]
+    type = 'deconv2d'
+    name = 'conv1_1'
+    output_channel = [-1,7,7,8]
+    fileter_size = [3,3]
+    stride = 2
+    padding = 'SAME'
+    bn=false
+    activation_fn = 'ReLU'
+    extra_feature = false
+
+    [Decoder.layer4]
+    type = 'deconv2d'
+    name = 'conv2_1'
+    output_channel = [-1,14,14,8]
+    fileter_size = [3,3]
+    stride = 2
+    padding = 'SAME'
+    bn=false
+    activation_fn = 'ReLU'
+    extra_feature = false
+
+    [Decoder.layer5]
+    type = 'deconv2d'
+    name = 'conv3_1'
+    output_channel = [-1,28,28,16]
+    fileter_size = [3,3]
+    stride = 2
+    padding = 'SAME'
+    bn=false
+    activation_fn = 'ReLU'
+    extra_feature = false
+
+    [Decoder.layer6]
+    type = 'conv2d'
+    name = 'conv4_1'
+    output_channel = 1
+    fileter_size = [3,3]
+    stride = 1
+    padding = 'SAME'
+    bn=false
+    activation_fn = 'Sigmoid'
+    extra_feature = false
+
+    [Decoder.layer7]
+    type = 'reshape'
+    shape = [-1, 784]
