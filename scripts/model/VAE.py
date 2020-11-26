@@ -68,8 +68,7 @@ class VAE(object):
     def _set_loss(self):
         self._loss_cross_entropy = cross_entropy(tf.reshape(self.input, [-1, self._image_width*self._image_height*self._image_channels]), self._logits)
         self._loss_KL = KL(self._mu, self._log_sigma)
-        self._loss_op = 1.0*tf.reduce_mean(self._loss_cross_entropy+self._loss_KL)
-        #self._loss_op = tf.reduce_mean(-self._loss_KL) 
+        self._loss_op = -1.0*tf.reduce_mean(self._loss_cross_entropy-self._loss_KL)
 
 
     def _set_optimizer(self):
@@ -79,9 +78,8 @@ class VAE(object):
 
     def train(self, sess, input_images):
         feed_dict = {self.input: input_images}
-        loss, _, loss_entropy, loss_kl, mu, log_sigma = sess.run([self._loss_op, self._train_op, self._loss_cross_entropy, self._loss_KL, self._mu, self._log_sigma], feed_dict=feed_dict)
+        loss, _, loss_entropy, loss_kl, logits = sess.run([self._loss_op, self._train_op, self._loss_cross_entropy, self._loss_KL, self._logits], feed_dict=feed_dict)
         print("loss_entropy:{}, loss_KL:{}".format(np.array(loss_entropy).mean(), np.array(loss_kl).mean()))
-        #print("mu:{}, log_sigma:{}".format(mu, log_sigma))
         return loss, _
 
     def test(self, sess, input_images):

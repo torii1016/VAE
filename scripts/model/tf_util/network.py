@@ -20,7 +20,6 @@ def fully_connection(inputs,
                      reuse=False):
 
     with tf.compat.v1.variable_scope(scope, reuse=reuse):
-        print("name:{}".format(name))
         outputs = linear(name=name,
                          inputs=inputs,
                          out_dim=output_channels)

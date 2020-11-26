@@ -10,7 +10,7 @@
     fileter_size = [3,3]
     stride = 1
     padding = 'SAME'
-    bn=false
+    bn=true
     activation_fn = 'ReLU'
     extra_feature = false
 
@@ -27,7 +27,7 @@
     fileter_size = [3,3]
     stride = 1
     padding = 'SAME'
-    bn=false
+    bn=true
     activation_fn = 'ReLU'
     extra_feature = false
 
@@ -44,7 +44,7 @@
     fileter_size = [3,3]
     stride = 1
     padding = 'SAME'
-    bn=false
+    bn=true
     activation_fn = 'ReLU'
     extra_feature = false
 
@@ -70,7 +70,7 @@
     [Encoder.layer9]
     type = 'fc'
     name = 'fc_mu'
-    output_channel = 100
+    output_channel = 16
     bn=false
     activation_fn = 'None'
     dropout = false
@@ -79,7 +79,7 @@
     [Encoder.layer10]
     type = 'fc'
     name = 'fc_sigma'
-    output_channel = 100
+    output_channel = 16
     bn=false
     activation_fn = 'None'
     dropout = false
@@ -110,7 +110,7 @@
     fileter_size = [3,3]
     stride = 2
     padding = 'SAME'
-    bn=false
+    bn=true
     activation_fn = 'ReLU'
     extra_feature = false
 
@@ -121,7 +121,7 @@
     fileter_size = [3,3]
     stride = 2
     padding = 'SAME'
-    bn=false
+    bn=true
     activation_fn = 'ReLU'
     extra_feature = false
 
@@ -132,7 +132,7 @@
     fileter_size = [3,3]
     stride = 2
     padding = 'SAME'
-    bn=false
+    bn=true
     activation_fn = 'ReLU'
     extra_feature = false
 
